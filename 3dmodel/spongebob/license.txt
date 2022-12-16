@@ -1,0 +1,11 @@
+Model Information:
+* title:	SpongeBob BFBB (HD!)
+* source:	https://sketchfab.com/3d-models/spongebob-bfbb-hd-8cab6ffc051749c7a3f50e90e7cd1e03
+* author:	Nick Bob (https://sketchfab.com/NickBob)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "SpongeBob BFBB (HD!)" (https://sketchfab.com/3d-models/spongebob-bfbb-hd-8cab6ffc051749c7a3f50e90e7cd1e03) by Nick Bob (https://sketchfab.com/NickBob) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

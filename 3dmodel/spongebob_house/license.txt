@@ -1,0 +1,11 @@
+Model Information:
+* title:	Spongebob's House
+* source:	https://sketchfab.com/3d-models/spongebobs-house-d9b8edf3526e429fa80758c285dac858
+* author:	Anthony Yanez (https://sketchfab.com/paulyanez)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Spongebob's House" (https://sketchfab.com/3d-models/spongebobs-house-d9b8edf3526e429fa80758c285dac858) by Anthony Yanez (https://sketchfab.com/paulyanez) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
