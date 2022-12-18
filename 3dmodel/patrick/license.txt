@@ -1,0 +1,11 @@
+Model Information:
+* title:	Patrick Star Gangnam Style
+* source:	https://sketchfab.com/3d-models/patrick-star-gangnam-style-dddbd4087b2941c585ed4c9f343ae2ba
+* author:	mohd.akmal.mahyudin (https://sketchfab.com/mohd.akmal.mahyudin)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Patrick Star Gangnam Style" (https://sketchfab.com/3d-models/patrick-star-gangnam-style-dddbd4087b2941c585ed4c9f343ae2ba) by mohd.akmal.mahyudin (https://sketchfab.com/mohd.akmal.mahyudin) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

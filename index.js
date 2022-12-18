@@ -1,11 +1,11 @@
-var scene = new THREE.Scene();
-var camera = new THREE.PerspectiveCamera(
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(
    45,
    window.innerWidth / window.innerHeight,
    1,
    1000
 );
-var renderer = new THREE.WebGLRenderer();
+const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
@@ -113,7 +113,7 @@ const base = new THREE.Mesh(geometry2, material2);
 scene.add(base);
 
 // Tambahkan light ke dalam scene
-var light = new THREE.PointLight(0xffffff, 10, 100);
+const light = new THREE.PointLight(0xffffff, 10, 100);
 light.position.set(0, 50, 50);
 scene.add(light);
 

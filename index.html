@@ -6,18 +6,44 @@
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Document</title>
-   <style>
 
+
+   <style>
+      * {
+         margin: 0;
+         padding: 0;
+         box-sizing: border-box;
+      }
+
+      #overlay {
+         position: absolute;
+         width: 100%;
+         height: 100%;
+         background-color: #000;
+         opacity: 0.5;
+         color: #fff;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         font-size: 60px;
+         font-family: sans-serif;
+      }
    </style>
-   <script src="node_modules/three/build/three.js"></script>
-   <script src="node_modules/three/examples/js/loaders/GLTFLoader.js"></script>
-   <script src="node_modules/three/examples/js/controls/OrbitControls.js"></script>
-   <script src="node_modules/three/examples/js/controls/FirstPersonControls.js"></script>
 </head>
 
 <body>
-   <script src="skybox.js"></script>
 
+
+
+   <div id="overlay">Press Anywhere to Start</div>
+
+
+   <script src="./node_modules/three/build/three.js"></script>
+   <script src="./node_modules/three/examples/js/loaders/GLTFLoader.js"></script>
+   <script src="./node_modules/three/examples/js/controls/OrbitControls.js"></script>
+   <script src="./node_modules/three/examples/js/controls/FirstPersonControls.js"></script>
+   <script src="./node_modules/three/examples/js/controls/PointerLockControls.js"></script>
+   <script src="./skybox.js"></script>
 </body>
 
 </html>
