@@ -58,6 +58,8 @@ addEventListener('keyup', function (e) {
 
 const speed = 1000;
 const processKeyboard = function (delta) {
+   if (!controls.isLocked) return;
+
    const actualSpeed = speed * delta;
    if (keyboard['w']) {
       controls.moveForward(actualSpeed);
