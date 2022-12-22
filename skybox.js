@@ -1,3 +1,9 @@
+import * as THREE from './node_modules/three/build/three.module.js'
+import { PointerLockControls } from './node_modules/three/examples/jsm/controls/PointerLockControls.js'
+import { OrbitControls } from "./node_modules/three/examples/jsm/controls/OrbitControls.js";
+import { GLTFLoader } from './node_modules/three/examples/jsm/loaders/GLTFLoader.js'
+import { FBXLoader } from './node_modules/three/examples/jsm/loaders/FBXLoader.js';
+
 const scene = new THREE.Scene();
 const cam = new THREE.PerspectiveCamera(
    60,
@@ -5,6 +11,7 @@ const cam = new THREE.PerspectiveCamera(
    45,
    300000
 );
+
 
 cam.position.set(1000, -4800, 0);
 
@@ -17,7 +24,7 @@ renderer.setPixelRatio(devicePixelRatio);
 renderer.shadowMap.enabled = true;
 document.body.appendChild(renderer.domElement);
 
-// const controls = new THREE.OrbitControls(cam, renderer.domElement);
+// const controls = new OrbitControls(cam, renderer.domElement);
 // const controls = new THREE.FirstPersonControls(cam, renderer.domElement);
 // controls.enabled = true;
 // controls.activeLook = true;
@@ -30,7 +37,7 @@ document.body.appendChild(renderer.domElement);
 // ///////////////////////
 // POINTER LOCK CONTROLS
 // ///////////////////////
-const controls = new THREE.PointerLockControls(cam, renderer.domElement);
+const controls = new PointerLockControls(cam, renderer.domElement);
 const clock = new THREE.Clock();
 
 const overlay = document.querySelector('#overlay');
@@ -56,7 +63,7 @@ addEventListener('keyup', function (e) {
    keyboard[e.key] = false;
 });
 
-const speed = 1000;
+const speed = 10000;
 const processKeyboard = function (delta) {
    if (!controls.isLocked) return;
 
@@ -74,16 +81,6 @@ const processKeyboard = function (delta) {
       controls.moveRight(actualSpeed);
    }
 };
-
-// // add event listener to show/hide a UI (e.g. the game's menu)
-
-// controls.addEventListener('lock', function () {
-//    menu.style.display = 'none';
-// });
-
-// controls.addEventListener('unlock', function () {
-//    menu.style.display = 'block';
-// });
 
 //sky
 const materialArray = [];
@@ -111,14 +108,15 @@ for (let i = 0; i < 6; i++) {
    materialArray[i].side = THREE.BackSide;
 }
 
-let skyBoxGeo = new THREE.BoxGeometry(12000, 12000, 12000);
+let skyBoxGeo = new THREE.BoxGeometry(12000, 10600, 12000);
 let skyBox = new THREE.Mesh(skyBoxGeo, materialArray);
 scene.add(skyBox);
 
 let jelly;
-let loader_jelly = new THREE.GLTFLoader().load(
+let loader_jelly = new GLTFLoader().load(
    '3dmodel/jelly/scene.gltf',
    function (result) {
+      // console.log(result);
       jelly = result.scene.children[0];
       jelly.castShadow = true;
       scene.add(jelly);
@@ -127,23 +125,20 @@ let loader_jelly = new THREE.GLTFLoader().load(
    }
 );
 
-// let squidward;
-// let loader_squidward = new THREE.GLTFLoader().load(
-//    '3dmodel/squidward/scene.gltf',
-//    function (result) {
-//       squidward = result.scene.children[0];
-//       squidward.castShadow = true;
-
-//       scene.add(squidward);
-//       squidward.scale.set(1, 1, 1);
-//       squidward.position.set(1000, -4900, -1000);
-//    }
-// );
-
 let squidwards;
-let loader_squidwards = new THREE.GLTFLoader().load(
+let animSquidwards;
+let mixerSquidwards;
+let loader_squidwards = new GLTFLoader().load(
+   // '3dmodel/squidwards/scene.gltf',
    '3dmodel/squidwards/scene.gltf',
    function (result) {
+      // console.log(result);
+      animSquidwards = result.animations;
+
+      mixerSquidwards = new THREE.AnimationMixer(result.scene);
+      let action1 = mixerSquidwards.clipAction(animSquidwards[0]);
+      action1.play();
+
       squidwards = result.scene.children[0];
       squidwards.castShadow = true;
 
@@ -153,45 +148,82 @@ let loader_squidwards = new THREE.GLTFLoader().load(
    }
 );
 
+// patrick ada 3 animasi
 let patrick;
-let loader_patrick = new THREE.GLTFLoader().load(
-   '3dmodel/patrick/scene.gltf',
+let animGangnam;
+let mixerPatrick;
+let loader_patrick = new GLTFLoader().load(
+   '3dmodel/patrick.gltf',
    function (result) {
+      // console.log(result);
+      animGangnam = result.animations;
+
+      mixerPatrick = new THREE.AnimationMixer(result.scene);
+      let action2 = mixerPatrick.clipAction(animGangnam[1]);
+      action2.play();
+
       patrick = result.scene.children[0];
-      // patrick.castShadow = true;
+      patrick.castShadow = true;
 
       scene.add(patrick);
-      patrick.scale.set(60000, 60000, 60000);
+      patrick.scale.set(600, 600, 600);
       patrick.position.set(-3300, -5200, -1000);
    }
 );
 
+
+// // fbx spongebob
+// let mixer;
+// const loader = new FBXLoader();
+// loader.load('3dmodel/spongebob_models/spongbob_waving.fbx', function (object) {
+
+//    console.log(object);
+//    mixer = new THREE.AnimationMixer(object);
+
+//    const action = mixer.clipAction(object.animations[0]);
+//    action.play();
+
+//    object.traverse(function (child) {
+
+//       if (child.isMesh) {
+
+//          child.castShadow = true;
+//          child.receiveShadow = true;
+
+//       }
+
+//    });
+//    scene.add(object);
+//    object.scale.set(1000, 1000, 1000);
+//    object.position.set(1000, -4950, -1000);
+// });
+
+
+// spongbob ada 4 animasi
 let spongebob;
-let loader_spongebob = new THREE.GLTFLoader().load(
-   '3dmodel/spongebob/scene.gltf',
+let animSpongebob;
+let mixerSpongebob;
+let loader_spongebob = new GLTFLoader().load(
+   '3dmodel/spongebob.gltf',
    function (result) {
+      console.log(result);
+
+      animSpongebob = result.animations;
+
+      mixerSpongebob = new THREE.AnimationMixer(result.scene);
+      let action = mixerSpongebob.clipAction(animSpongebob[2]);
+      action.play();
+
       spongebob = result.scene.children[0];
       spongebob.castShadow = true;
       scene.add(spongebob);
-      spongebob.scale.set(4000, 4000, 4000);
+      spongebob.scale.set(400, 400, 400);
       spongebob.position.set(3000, -4700, -1000);
    }
 );
 
-// let patty;
-// let loader_patty = new THREE.GLTFLoader().load(
-//    '3dmodel/patty/scene.gltf',
-//    function (result) {
-//       patty = result.scene.children[0];
-//       patty.castShadow = true;
-//       scene.add(patty);
-//       patty.scale.set(1, 1, 1);
-//       patty.position.set(1000, -4900, -1000);
-//    }
-// );
-
 let pattycar;
-let loader_pattycar = new THREE.GLTFLoader().load(
+let loader_pattycar = new GLTFLoader().load(
    '3dmodel/patty_car/scene.gltf',
    function (result) {
       pattycar = result.scene.children[0];
@@ -204,11 +236,13 @@ let loader_pattycar = new THREE.GLTFLoader().load(
 );
 
 let komvlex;
-let loader_komvlex = new THREE.GLTFLoader().load(
+let loader_komvlex = new GLTFLoader().load(
    '3dmodel/spongebob_environment/scene.gltf',
    function (result) {
+      // console.log(result);
       komvlex = result.scene.children[0];
       komvlex.castShadow = true;
+      komvlex.receiveShadow = true;
       scene.add(komvlex);
       komvlex.scale.set(1800, 1800, 2000);
       komvlex.position.set(500, -5500, -1000);
@@ -217,7 +251,7 @@ let loader_komvlex = new THREE.GLTFLoader().load(
 
 let light1 = new THREE.PointLight();
 light1.intensity = 2;
-light1.position.set(000, -1500, -1000);
+light1.position.set(0, -1500, -1000);
 // light1.position.set(1000, -4800, -1000);
 const helper1 = new THREE.PointLightHelper(light1, 0.04, 0xffff00);
 // scene.add(helper1);
@@ -226,7 +260,7 @@ scene.add(light1);
 const light = new THREE.PointLight(0xffffff, 10, 100);
 const helper = new THREE.PointLightHelper(light, 100, 0xffff00);
 light.position.set(1500, 1000, 1000);
-light.intensity = 4;
+light.intensity = 3;
 // scene.add(light);
 // scene.add(helper);
 const light3 = new THREE.AmbientLight(0xffffff); // soft white light
@@ -234,14 +268,27 @@ light3.intensity = 1;
 scene.add(light3);
 
 const light2 = new THREE.HemisphereLight(0xffffff, 0xffffff, 0.1);
-light2.intensity = 1;
+light2.intensity = .5;
 // scene.add(light2);
 
 function draw() {
+   if (mixerPatrick) {
+      mixerPatrick.update(clock.getDelta());
+   }
+   if (mixerSpongebob) {
+      mixerSpongebob.update(clock.getDelta());
+   }
+   // if (mixerSquidwards) {
+   //    mixerSquidwards.update(clock.getDelta());
+   // }
+
+   // if (mixer) {
+   //    mixer.update(clock.getDelta());
+   // }
+
    requestAnimationFrame(draw);
    renderer.render(scene, cam);
-   const delta = clock.getDelta();
-   processKeyboard(delta);
+   processKeyboard(clock.getDelta());
 }
 
 draw();

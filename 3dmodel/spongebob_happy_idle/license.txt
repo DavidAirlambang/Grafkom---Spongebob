@@ -1,0 +1,11 @@
+Model Information:
+* title:	Spongebob Happy Idle
+* source:	https://sketchfab.com/3d-models/spongebob-happy-idle-0a1e89bfb5a34a92a4ee8b3550ccb8d4
+* author:	renatosg182 (https://sketchfab.com/renatosg182)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Spongebob Happy Idle" (https://sketchfab.com/3d-models/spongebob-happy-idle-0a1e89bfb5a34a92a4ee8b3550ccb8d4) by renatosg182 (https://sketchfab.com/renatosg182) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

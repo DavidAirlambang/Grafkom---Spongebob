@@ -56,17 +56,17 @@ let loader_patty = new THREE.GLTFLoader().load(
    }
 );
 
-let spongebob;
-let loader_spongebob = new THREE.GLTFLoader().load(
-   '3dmodel/spongebob/scene.gltf',
-   function (result) {
-      spongebob = result.scene.children[0];
-      spongebob.castShadow = true;
-      scene.add(spongebob);
-      spongebob.scale.set(0.02, 0.02, 0.02);
-      spongebob.position.set(1, 10, 1);
-   }
-);
+// let spongebob;
+// let loader_spongebob = new THREE.GLTFLoader().load(
+//    '3dmodel/spongebob/scene.gltf',
+//    function (result) {
+//       spongebob = result.scene.children[0];
+//       spongebob.castShadow = true;
+//       scene.add(spongebob);
+//       spongebob.scale.set(0.02, 0.02, 0.02);
+//       spongebob.position.set(1, 10, 1);
+//    }
+// );
 
 let squidward;
 let loader_squidward = new THREE.GLTFLoader().load(
