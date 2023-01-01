@@ -1,8 +1,6 @@
-import * as THREE from './node_modules/three/build/three.module.js'
-import { PointerLockControls } from './node_modules/three/examples/jsm/controls/PointerLockControls.js'
-import { OrbitControls } from "./node_modules/three/examples/jsm/controls/OrbitControls.js";
-import { GLTFLoader } from './node_modules/three/examples/jsm/loaders/GLTFLoader.js'
-import { FBXLoader } from './node_modules/three/examples/jsm/loaders/FBXLoader.js';
+import * as THREE from './node_modules/three/build/three.module.js';
+import { PointerLockControls } from './node_modules/three/examples/jsm/controls/PointerLockControls.js';
+import { GLTFLoader } from './node_modules/three/examples/jsm/loaders/GLTFLoader.js';
 
 const scene = new THREE.Scene();
 const cam = new THREE.PerspectiveCamera(
@@ -12,6 +10,7 @@ const cam = new THREE.PerspectiveCamera(
    300000
 );
 
+scene.fog = new THREE.FogExp2(0x888888, 0.0003);
 
 cam.position.set(1000, -4800, 0);
 
@@ -171,7 +170,6 @@ let loader_patrick = new GLTFLoader().load(
    }
 );
 
-
 // // fbx spongebob
 // let mixer;
 // const loader = new FBXLoader();
@@ -198,7 +196,6 @@ let loader_patrick = new GLTFLoader().load(
 //    object.position.set(1000, -4950, -1000);
 // });
 
-
 // spongbob ada 4 animasi
 let spongebob;
 let animSpongebob;
@@ -206,8 +203,6 @@ let mixerSpongebob;
 let loader_spongebob = new GLTFLoader().load(
    '3dmodel/spongebob.gltf',
    function (result) {
-      console.log(result);
-
       animSpongebob = result.animations;
 
       mixerSpongebob = new THREE.AnimationMixer(result.scene);
@@ -268,16 +263,16 @@ light3.intensity = 1;
 scene.add(light3);
 
 const light2 = new THREE.HemisphereLight(0xffffff, 0xffffff, 0.1);
-light2.intensity = .5;
+light2.intensity = 0.5;
 // scene.add(light2);
 
 function draw() {
    if (mixerPatrick) {
       mixerPatrick.update(clock.getDelta());
    }
-   if (mixerSpongebob) {
-      mixerSpongebob.update(clock.getDelta());
-   }
+   // if (mixerSpongebob) {
+   //    mixerSpongebob.update(clock.getDelta());
+   // }
    // if (mixerSquidwards) {
    //    mixerSquidwards.update(clock.getDelta());
    // }

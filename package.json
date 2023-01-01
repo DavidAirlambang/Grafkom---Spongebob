@@ -1,0 +1,24 @@
+{
+   "dependencies": {
+      "three": "^0.148.0"
+   },
+   "name": "grafkom---spongebob",
+   "description": "",
+   "version": "1.0.0",
+   "main": "index.js",
+   "devDependencies": {},
+   "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+   },
+   "repository": {
+      "type": "git",
+      "url": "git+https://github.com/DavidAirlambang/Grafkom---Spongebob.git"
+   },
+   "keywords": [],
+   "author": "",
+   "license": "ISC",
+   "bugs": {
+      "url": "https://github.com/DavidAirlambang/Grafkom---Spongebob/issues"
+   },
+   "homepage": "https://github.com/DavidAirlambang/Grafkom---Spongebob#readme"
+}
