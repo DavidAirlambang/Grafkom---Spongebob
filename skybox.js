@@ -62,7 +62,7 @@ addEventListener('keyup', function (e) {
    keyboard[e.key] = false;
 });
 
-const speed = 10000;
+const speed = 1000;
 const processKeyboard = function (delta) {
    if (!controls.isLocked) return;
 
@@ -266,24 +266,24 @@ const light2 = new THREE.HemisphereLight(0xffffff, 0xffffff, 0.1);
 light2.intensity = 0.5;
 // scene.add(light2);
 
+
+const clock2 = new THREE.Clock();
+const clock3 = new THREE.Clock();
+const clock4 = new THREE.Clock();
 function draw() {
    if (mixerPatrick) {
       mixerPatrick.update(clock.getDelta());
    }
-   // if (mixerSpongebob) {
-   //    mixerSpongebob.update(clock.getDelta());
-   // }
-   // if (mixerSquidwards) {
-   //    mixerSquidwards.update(clock.getDelta());
-   // }
-
-   // if (mixer) {
-   //    mixer.update(clock.getDelta());
-   // }
+   if (mixerSpongebob) {
+      mixerSpongebob.update(clock2.getDelta());
+   }
+   if (mixerSquidwards) {
+      mixerSquidwards.update(clock3.getDelta());
+   }
 
    requestAnimationFrame(draw);
    renderer.render(scene, cam);
-   processKeyboard(clock.getDelta());
+   processKeyboard(clock4.getDelta());
 }
 
 draw();
