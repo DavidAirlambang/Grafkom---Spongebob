@@ -95,7 +95,7 @@ const texture_left = new THREE.TextureLoader().load('./assets/world/left.png');
 materialArray.push(new THREE.MeshBasicMaterial({ map: texture_front }));
 materialArray.push(new THREE.MeshBasicMaterial({ map: texture_back }));
 materialArray.push(new THREE.MeshBasicMaterial({ map: texture_top }));
-materialArray.push(new THREE.MeshPhongMaterial({ map: texture_bottom }));
+materialArray.push(new THREE.MeshBasicMaterial({ map: texture_bottom }));
 materialArray.push(new THREE.MeshBasicMaterial({ map: texture_right }));
 materialArray.push(new THREE.MeshBasicMaterial({ map: texture_left }));
 
@@ -107,6 +107,18 @@ let skyBoxGeo = new THREE.BoxGeometry(12000, 10600, 12000);
 let skyBox = new THREE.Mesh(skyBoxGeo, materialArray);
 scene.add(skyBox);
 
+// sound
+let listener = new THREE.AudioListener();
+cam.add(listener);
+
+let backgroundSound = new THREE.Audio(listener);
+let loader = new THREE.AudioLoader().load('./assets/music/background.mp3', (hasil) => {
+   // console.log(hasil);
+   backgroundSound.setBuffer(hasil);
+   backgroundSound.play();
+});
+
+// models
 let jelly;
 let loader_jelly = new THREE.GLTFLoader().load(
    '3dmodel/jelly/scene.gltf',
