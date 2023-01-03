@@ -1,12 +1,12 @@
 {
    "dependencies": {
-      "three": "^0.148.0"
+      "cannon": "^0.6.2",
+      "three": "^0.146.0"
    },
    "name": "grafkom---spongebob",
    "description": "",
    "version": "1.0.0",
    "main": "index.js",
-   "devDependencies": {},
    "scripts": {
       "test": "echo \"Error: no test specified\" && exit 1"
    },

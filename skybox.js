@@ -1,7 +1,3 @@
-import * as THREE from './node_modules/three/build/three.module.js';
-import { PointerLockControls } from './node_modules/three/examples/jsm/controls/PointerLockControls.js';
-import { GLTFLoader } from './node_modules/three/examples/jsm/loaders/GLTFLoader.js';
-
 const scene = new THREE.Scene();
 const cam = new THREE.PerspectiveCamera(
    60,
@@ -10,7 +6,7 @@ const cam = new THREE.PerspectiveCamera(
    300000
 );
 
-scene.fog = new THREE.FogExp2(0x888888, 0.0003);
+scene.fog = new THREE.FogExp2(0xaaaaaa, 0.0002);
 
 cam.position.set(1000, -4800, 0);
 
@@ -36,7 +32,7 @@ document.body.appendChild(renderer.domElement);
 // ///////////////////////
 // POINTER LOCK CONTROLS
 // ///////////////////////
-const controls = new PointerLockControls(cam, renderer.domElement);
+const controls = new THREE.PointerLockControls(cam, renderer.domElement);
 const clock = new THREE.Clock();
 
 const overlay = document.querySelector('#overlay');
@@ -112,7 +108,7 @@ let skyBox = new THREE.Mesh(skyBoxGeo, materialArray);
 scene.add(skyBox);
 
 let jelly;
-let loader_jelly = new GLTFLoader().load(
+let loader_jelly = new THREE.GLTFLoader().load(
    '3dmodel/jelly/scene.gltf',
    function (result) {
       // console.log(result);
@@ -127,7 +123,7 @@ let loader_jelly = new GLTFLoader().load(
 let squidwards;
 let animSquidwards;
 let mixerSquidwards;
-let loader_squidwards = new GLTFLoader().load(
+let loader_squidwards = new THREE.GLTFLoader().load(
    // '3dmodel/squidwards/scene.gltf',
    '3dmodel/squidwards/scene.gltf',
    function (result) {
@@ -151,7 +147,7 @@ let loader_squidwards = new GLTFLoader().load(
 let patrick;
 let animGangnam;
 let mixerPatrick;
-let loader_patrick = new GLTFLoader().load(
+let loader_patrick = new THREE.GLTFLoader().load(
    '3dmodel/patrick.gltf',
    function (result) {
       // console.log(result);
@@ -162,7 +158,11 @@ let loader_patrick = new GLTFLoader().load(
       action2.play();
 
       patrick = result.scene.children[0];
-      patrick.castShadow = true;
+      patrick.traverse(node => {
+         if (node.isMesh) {
+            node.castShadow = true;
+         }
+      });
 
       scene.add(patrick);
       patrick.scale.set(600, 600, 600);
@@ -200,7 +200,7 @@ let loader_patrick = new GLTFLoader().load(
 let spongebob;
 let animSpongebob;
 let mixerSpongebob;
-let loader_spongebob = new GLTFLoader().load(
+let loader_spongebob = new THREE.GLTFLoader().load(
    '3dmodel/spongebob.gltf',
    function (result) {
       animSpongebob = result.animations;
@@ -210,7 +210,12 @@ let loader_spongebob = new GLTFLoader().load(
       action.play();
 
       spongebob = result.scene.children[0];
-      spongebob.castShadow = true;
+
+      spongebob.traverse(node => {
+         if (node.isMesh) {
+            node.castShadow = true;
+         }
+      });
       scene.add(spongebob);
       spongebob.scale.set(400, 400, 400);
       spongebob.position.set(3000, -4700, -1000);
@@ -218,12 +223,16 @@ let loader_spongebob = new GLTFLoader().load(
 );
 
 let pattycar;
-let loader_pattycar = new GLTFLoader().load(
+let loader_pattycar = new THREE.GLTFLoader().load(
    '3dmodel/patty_car/scene.gltf',
    function (result) {
       pattycar = result.scene.children[0];
       // scene.add(result.scene.children[0]);
-      pattycar.castShadow = true;
+      pattycar.traverse(node => {
+         if (node.isMesh) {
+            node.castShadow = true;
+         }
+      });
       scene.add(pattycar);
       pattycar.scale.set(500, 500, 500);
       pattycar.position.set(3000, -4700, -1000);
@@ -231,7 +240,7 @@ let loader_pattycar = new GLTFLoader().load(
 );
 
 let komvlex;
-let loader_komvlex = new GLTFLoader().load(
+let loader_komvlex = new THREE.GLTFLoader().load(
    '3dmodel/spongebob_environment/scene.gltf',
    function (result) {
       // console.log(result);
@@ -266,11 +275,49 @@ const light2 = new THREE.HemisphereLight(0xffffff, 0xffffff, 0.1);
 light2.intensity = 0.5;
 // scene.add(light2);
 
+// //////////////////////////////////
+// CANNON JS
+// //////////////////////////////////
+
+const world = new CANNON.World();
+world.gravity.set(0, -200, 0);
+world.broadphase = new CANNON.NaiveBroadphase();
+const timeStamp = 1.0 / 60.0;
+
+const debugRenderer = new THREE.CannonDebugRenderer(scene, world);
+
+const plane = new CANNON.Plane();
+const planeBody = new CANNON.Body({ shape: plane, mass: 0 });
+planeBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2);
+planeBody.position.set(1000, -5000, 0);
+world.addBody(planeBody);
+
+const box = new CANNON.Box(new CANNON.Vec3(100, 100, 100));
+const boxBody = new CANNON.Body({ shape: box, mass: 10 });
+boxBody.position.set(1000, -4500, 0);
+world.addBody(boxBody);
+
+const box2 = new CANNON.Box(new CANNON.Vec3(80, 80, 80));
+const box2Body = new CANNON.Body({ shape: box2, mass: 0 });
+box2Body.position.set(500, -4900, 0);
+world.addBody(box2Body);
+
+const bGeo = new THREE.BoxGeometry(200, 200, 200);
+const bMat = new THREE.MeshLambertMaterial({ color: 0xff00ff });
+const bMesh = new THREE.Mesh(bGeo, bMat);
+scene.add(bMesh);
 
 const clock2 = new THREE.Clock();
 const clock3 = new THREE.Clock();
 const clock4 = new THREE.Clock();
+
 function draw() {
+   requestAnimationFrame(draw);
+
+   box2Body.position.copy(cam.position);
+   bMesh.position.copy(boxBody.position);
+   world.step(timeStamp);
+
    if (mixerPatrick) {
       mixerPatrick.update(clock.getDelta());
    }
@@ -281,7 +328,7 @@ function draw() {
       mixerSquidwards.update(clock3.getDelta());
    }
 
-   requestAnimationFrame(draw);
+   debugRenderer.update();
    renderer.render(scene, cam);
    processKeyboard(clock4.getDelta());
 }
