@@ -8,7 +8,7 @@ const cam = new THREE.PerspectiveCamera(
 
 scene.fog = new THREE.FogExp2(0xaaaaaa, 0.0002);
 
-cam.position.set(1000, -4800, 0);
+cam.position.set(5200, -4850, 0);
 
 // cam.lookAt(new THREE.Vector3(0, -10000, 100));
 
@@ -113,10 +113,29 @@ cam.add(listener);
 
 let backgroundSound = new THREE.Audio(listener);
 let loader = new THREE.AudioLoader().load('./assets/music/background.mp3', (hasil) => {
-   // console.log(hasil);
-   backgroundSound.setBuffer(hasil);
-   backgroundSound.play();
+   console.log(hasil);
+   if (hasil != null) {
+      backgroundSound.setVolume(0.5);
+      backgroundSound.setBuffer(hasil);
+      backgroundSound.play();
+   }
 });
+
+let spongebobSays = ['./assets/dialog/spongebob/opening.wav']
+let spongebobTalk = new THREE.Audio(listener);
+let spongebobLoader = new THREE.AudioLoader().load(spongebobSays[0], (hasil) => {
+   console.log(hasil);
+   if (hasil != null) {
+      spongebobTalk.setBuffer(hasil);
+   }
+});
+
+addEventListener("keydown", (evt) => {
+   if (evt.key == "e") {
+      spongebobTalk.play();
+   }
+})
+
 
 // models
 let jelly;
@@ -218,7 +237,7 @@ let loader_spongebob = new THREE.GLTFLoader().load(
       animSpongebob = result.animations;
 
       mixerSpongebob = new THREE.AnimationMixer(result.scene);
-      let action = mixerSpongebob.clipAction(animSpongebob[2]);
+      let action = mixerSpongebob.clipAction(animSpongebob[1]);
       action.play();
 
       spongebob = result.scene.children[0];
@@ -229,8 +248,8 @@ let loader_spongebob = new THREE.GLTFLoader().load(
          }
       });
       scene.add(spongebob);
-      spongebob.scale.set(400, 400, 400);
-      spongebob.position.set(3000, -4700, -1000);
+      spongebob.scale.set(500, 500, 500);
+      spongebob.position.set(5100, -5200, -1000);
    }
 );
 
