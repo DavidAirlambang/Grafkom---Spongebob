@@ -1,0 +1,11 @@
+Model Information:
+* title:	The Krusty Krab
+* source:	https://sketchfab.com/3d-models/the-krusty-krab-e109df8b1cb1487dbf2553e5e2d7eff1
+* author:	Mrlunettes (https://sketchfab.com/Mrlunettes)
+
+Model License:
+* license type:	CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)
+* requirements:	Author must be credited. No commercial use.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "The Krusty Krab" (https://sketchfab.com/3d-models/the-krusty-krab-e109df8b1cb1487dbf2553e5e2d7eff1) by Mrlunettes (https://sketchfab.com/Mrlunettes) licensed under CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)
