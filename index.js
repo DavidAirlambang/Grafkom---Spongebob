@@ -8,9 +8,9 @@ const cam = new THREE.PerspectiveCamera(
 
 scene.fog = new THREE.FogExp2(0xaaaaaa, 0.0002);
 
-// cam.position.set(5200, -4850, 0);
-cam.position.set(-3000, -4800, 0);
-cam.rotation.y = 600;
+cam.position.set(5200, -4850, 0);
+// cam.position.set(-3000, -4800, 0);
+// cam.rotation.y = 600;
 // cam.lookAt(new THREE.Vector3(0, -10000, 100));
 
 const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -118,25 +118,62 @@ let loader = new THREE.AudioLoader().load(
    hasil => {
       console.log(hasil);
       if (hasil != null) {
-         backgroundSound.setVolume(0.5);
          backgroundSound.setBuffer(hasil);
+         backgroundSound.setVolume(0.3);
+         backgroundSound.setLoop(true);
          backgroundSound.play();
       }
    }
 );
 
-let spongebobSays = ['./assets/dialog/spongebob/opening.wav'];
-let spongebobTalk = new THREE.Audio(listener);
-let spongebobLoader = new THREE.AudioLoader().load(spongebobSays[0], hasil => {
+const spongebobSays = ['./assets/dialog/spongebob/opening.wav'];
+const spongebobTalk = new THREE.Audio(listener);
+const spongebobLoader = new THREE.AudioLoader().load(spongebobSays[0], hasil => {
    console.log(hasil);
    if (hasil != null) {
       spongebobTalk.setBuffer(hasil);
    }
 });
 
+const patrickSays = ['./assets/dialog/patrick/100.wav'];
+const patrickTalk = new THREE.Audio(listener);
+const patrickLoader = new THREE.AudioLoader().load(patrickSays[0], hasil => {
+   console.log(hasil);
+   if (hasil != null) {
+      patrickTalk.setBuffer(hasil);
+      patrickTalk.setVolume(0.4);
+   }
+});
+
+const squidwardSays = ['./assets/dialog/squidward/holiday.wav'];
+const squidwardTalk = new THREE.Audio(listener);
+const squidwardLoader = new THREE.AudioLoader().load(squidwardSays[0], hasil => {
+   console.log(hasil);
+   if (hasil != null) {
+      squidwardTalk.setBuffer(hasil);
+      squidwardTalk.setVolume(0.8);
+   }
+});
+
+const krabsSays = ['./assets/dialog/krabs/money.wav'];
+const krabsTalk = new THREE.Audio(listener);
+const krabsLoader = new THREE.AudioLoader().load(krabsSays[0], hasil => {
+   console.log(hasil);
+   if (hasil != null) {
+      krabsTalk.setBuffer(hasil);
+      krabsTalk.setVolume(0.5);
+   }
+});
+
 addEventListener('keydown', evt => {
    if (evt.key == 'e') {
       spongebobTalk.play();
+   } else if (evt.key == '1') {
+      patrickTalk.play();
+   } else if (evt.key == '2') {
+      squidwardTalk.play();
+   } else if (evt.key == '3') {
+      krabsTalk.play();
    }
 });
 
@@ -324,7 +361,7 @@ let loader_krusty = new THREE.GLTFLoader().load(
       scene.add(krusty);
       krusty.scale.set(400, 400, 400);
       krusty.rotation.z = -300;
-      krusty.position.set(-3000, -4980, 4000);
+      krusty.position.set(-3000, -4985, 4000);
    }
 );
 
@@ -354,33 +391,33 @@ light2.intensity = 0.5;
 // CANNON JS
 // //////////////////////////////////
 
-const world = new CANNON.World();
-world.gravity.set(0, -200, 0);
-world.broadphase = new CANNON.NaiveBroadphase();
-const timeStamp = 1.0 / 60.0;
+// const world = new CANNON.World();
+// world.gravity.set(0, -200, 0);
+// world.broadphase = new CANNON.NaiveBroadphase();
+// const timeStamp = 1.0 / 60.0;
 
-const debugRenderer = new THREE.CannonDebugRenderer(scene, world);
+// const debugRenderer = new THREE.CannonDebugRenderer(scene, world);
 
-const plane = new CANNON.Plane();
-const planeBody = new CANNON.Body({ shape: plane, mass: 0 });
-planeBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2);
-planeBody.position.set(1000, -5000, 0);
-world.addBody(planeBody);
+// const plane = new CANNON.Plane();
+// const planeBody = new CANNON.Body({ shape: plane, mass: 0 });
+// planeBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2);
+// planeBody.position.set(1000, -5000, 0);
+// world.addBody(planeBody);
 
-const box = new CANNON.Box(new CANNON.Vec3(100, 100, 100));
-const boxBody = new CANNON.Body({ shape: box, mass: 10 });
-boxBody.position.set(1000, -4500, 0);
-world.addBody(boxBody);
+// const box = new CANNON.Box(new CANNON.Vec3(100, 100, 100));
+// const boxBody = new CANNON.Body({ shape: box, mass: 10 });
+// boxBody.position.set(1000, -4500, 0);
+// world.addBody(boxBody);
 
-const box2 = new CANNON.Box(new CANNON.Vec3(80, 80, 80));
-const box2Body = new CANNON.Body({ shape: box2, mass: 0 });
-box2Body.position.set(500, -4900, 0);
-world.addBody(box2Body);
+// const box2 = new CANNON.Box(new CANNON.Vec3(80, 80, 80));
+// const box2Body = new CANNON.Body({ shape: box2, mass: 0 });
+// box2Body.position.set(500, -4900, 0);
+// world.addBody(box2Body);
 
-const bGeo = new THREE.BoxGeometry(200, 200, 200);
-const bMat = new THREE.MeshLambertMaterial({ color: 0xff00ff });
-const bMesh = new THREE.Mesh(bGeo, bMat);
-scene.add(bMesh);
+// const bGeo = new THREE.BoxGeometry(200, 200, 200);
+// const bMat = new THREE.MeshLambertMaterial({ color: 0xff00ff });
+// const bMesh = new THREE.Mesh(bGeo, bMat);
+// scene.add(bMesh);
 
 const clock2 = new THREE.Clock();
 const clock3 = new THREE.Clock();
@@ -390,9 +427,9 @@ const clock5 = new THREE.Clock();
 function draw() {
    requestAnimationFrame(draw);
 
-   box2Body.position.copy(cam.position);
-   bMesh.position.copy(boxBody.position);
-   world.step(timeStamp);
+   // box2Body.position.copy(cam.position);
+   // bMesh.position.copy(boxBody.position);
+   // world.step(timeStamp);
 
    if (mixerPatrick) {
       mixerPatrick.update(clock.getDelta());
@@ -407,7 +444,7 @@ function draw() {
       mixerKrabs.update(clock5.getDelta());
    }
 
-   debugRenderer.update();
+   // debugRenderer.update();
    renderer.render(scene, cam);
    processKeyboard(clock4.getDelta());
 }
