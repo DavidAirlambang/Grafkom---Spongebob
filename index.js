@@ -37,6 +37,8 @@ const controls = new THREE.PointerLockControls(cam, renderer.domElement);
 const clock = new THREE.Clock();
 
 const overlay = document.querySelector('#overlay');
+const guide = document.querySelector('.guide');
+const subtitle = document.querySelector('.subtitle');
 
 overlay.addEventListener('click', function () {
    controls.lock();
@@ -128,17 +130,20 @@ let loader = new THREE.AudioLoader().load(
 
 const spongebobSays = ['./assets/dialog/spongebob/opening.wav'];
 const spongebobTalk = new THREE.Audio(listener);
-const spongebobLoader = new THREE.AudioLoader().load(spongebobSays[0], hasil => {
-   console.log(hasil);
-   if (hasil != null) {
-      spongebobTalk.setBuffer(hasil);
+const spongebobLoader = new THREE.AudioLoader().load(
+   spongebobSays[0],
+   hasil => {
+      console.log(hasil);
+      if (hasil != null) {
+         spongebobTalk.setBuffer(hasil);
+      }
    }
-});
+);
 
 const patrickSays = ['./assets/dialog/patrick/100.wav'];
 const patrickTalk = new THREE.Audio(listener);
 const patrickLoader = new THREE.AudioLoader().load(patrickSays[0], hasil => {
-   console.log(hasil);
+   // console.log(hasil);
    if (hasil != null) {
       patrickTalk.setBuffer(hasil);
       patrickTalk.setVolume(0.4);
@@ -147,18 +152,21 @@ const patrickLoader = new THREE.AudioLoader().load(patrickSays[0], hasil => {
 
 const squidwardSays = ['./assets/dialog/squidward/holiday.wav'];
 const squidwardTalk = new THREE.Audio(listener);
-const squidwardLoader = new THREE.AudioLoader().load(squidwardSays[0], hasil => {
-   console.log(hasil);
-   if (hasil != null) {
-      squidwardTalk.setBuffer(hasil);
-      squidwardTalk.setVolume(0.8);
+const squidwardLoader = new THREE.AudioLoader().load(
+   squidwardSays[0],
+   hasil => {
+      // console.log(hasil);
+      if (hasil != null) {
+         squidwardTalk.setBuffer(hasil);
+         squidwardTalk.setVolume(0.8);
+      }
    }
-});
+);
 
 const krabsSays = ['./assets/dialog/krabs/money.wav'];
 const krabsTalk = new THREE.Audio(listener);
 const krabsLoader = new THREE.AudioLoader().load(krabsSays[0], hasil => {
-   console.log(hasil);
+   // console.log(hasil);
    if (hasil != null) {
       krabsTalk.setBuffer(hasil);
       krabsTalk.setVolume(0.5);
@@ -166,14 +174,29 @@ const krabsLoader = new THREE.AudioLoader().load(krabsSays[0], hasil => {
 });
 
 addEventListener('keydown', evt => {
-   if (evt.key == 'e') {
+   if (
+      spongebobTalk.isPlaying ||
+      patrickTalk.isPlaying ||
+      squidwardTalk.isPlaying ||
+      krabsTalk.isPlaying
+   )
+      return;
+
+   if (evt.key == '1') {
       spongebobTalk.play();
-   } else if (evt.key == '1') {
-      patrickTalk.play();
+      subtitle.textContent =
+         'Hi Sir Sulaeman! This is final project by David, Alvon, and Nathanael.';
    } else if (evt.key == '2') {
-      squidwardTalk.play();
+      patrickTalk.play();
+      subtitle.textContent =
+         'So Spongebob, do we gonna get 100 in this final project?';
    } else if (evt.key == '3') {
+      squidwardTalk.play();
+      subtitle.textContent =
+         'Can i have a long holiday after this final exams are over so that i can play my clarinet all day?';
+   } else if (evt.key == '4') {
       krabsTalk.play();
+      subtitle.textContent = 'I love money.';
    }
 });
 
@@ -442,6 +465,23 @@ function draw() {
    }
    if (mixerKrabs) {
       mixerKrabs.update(clock5.getDelta());
+   }
+
+   if (controls.isLocked) {
+      guide.style.display = 'block';
+   } else {
+      guide.style.display = 'none';
+   }
+
+   if (
+      spongebobTalk.isPlaying ||
+      patrickTalk.isPlaying ||
+      squidwardTalk.isPlaying ||
+      krabsTalk.isPlaying
+   ) {
+      subtitle.style.display = 'block';
+   } else {
+      subtitle.style.display = 'none';
    }
 
    // debugRenderer.update();

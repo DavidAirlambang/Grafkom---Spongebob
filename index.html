@@ -15,6 +15,10 @@
          box-sizing: border-box;
       }
 
+      body {
+         font-family: sans-serif;
+      }
+
       #overlay {
          position: absolute;
          width: 100%;
@@ -26,7 +30,28 @@
          justify-content: center;
          align-items: center;
          font-size: 60px;
-         font-family: sans-serif;
+      }
+
+      .guide {
+         position: absolute;
+         bottom: 70px;
+         left: 10px;
+         color: #fff;
+         width: 250px;
+         background-color: rgba(0, 0, 0, 0.5);
+         padding: 10px;
+         letter-spacing: 1px;
+      }
+
+      .subtitle {
+         position: absolute;
+         left: 50%;
+         transform: translateX(-50%);
+         bottom: 70px;
+         color: #fff;
+         font-size: 30px;
+         font-weight: 700;
+         -webkit-text-stroke: 1px black;
       }
    </style>
 </head>
@@ -34,6 +59,17 @@
 <body>
 
    <div id="overlay">Press Anywhere to Start</div>
+
+
+   <div class="guide">
+      <div class="items">W S A D - Move</div>
+      <div class="items">1 - Spongebob Talk</div>
+      <div class="items">2 - Patrick Talk</div>
+      <div class="items">3 - Squidward Talk</div>
+      <div class="items">4 - Mr Krab Talk</div>
+   </div>
+
+   <div class="subtitle"></div>
 
 
    <script src="./node_modules/three/build/three.js"></script>
