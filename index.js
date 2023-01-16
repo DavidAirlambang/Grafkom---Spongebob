@@ -8,7 +8,7 @@ const cam = new THREE.PerspectiveCamera(
 
 scene.fog = new THREE.FogExp2(0xaaaaaa, 0.0002);
 
-cam.position.set(5200, -4850, 0);
+cam.position.set(5200, -4900, 0);
 // cam.position.set(-3000, -4800, 0);
 // cam.rotation.y = 600;
 // cam.lookAt(new THREE.Vector3(0, -10000, 100));
@@ -19,16 +19,6 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(devicePixelRatio);
 renderer.shadowMap.enabled = true;
 document.body.appendChild(renderer.domElement);
-
-// const controls = new OrbitControls(cam, renderer.domElement);
-// const controls = new THREE.FirstPersonControls(cam, renderer.domElement);
-// controls.enabled = true;
-// controls.activeLook = true;
-
-// controls.lookSpeed = 0.8;
-// controls.movementSpeed = 5;
-// controls.minDistance = -5000;
-// controls.maxDistance = 10000;
 
 // ///////////////////////
 // POINTER LOCK CONTROLS
@@ -414,33 +404,46 @@ light2.intensity = 0.5;
 // CANNON JS
 // //////////////////////////////////
 
-// const world = new CANNON.World();
-// world.gravity.set(0, -200, 0);
-// world.broadphase = new CANNON.NaiveBroadphase();
-// const timeStamp = 1.0 / 60.0;
+const world = new CANNON.World();
+world.gravity.set(0, -1000, 0);
+world.broadphase = new CANNON.NaiveBroadphase();
+const timeStamp = 1.0 / 60.0;
 
-// const debugRenderer = new THREE.CannonDebugRenderer(scene, world);
+const debugRenderer = new THREE.CannonDebugRenderer(scene, world);
 
-// const plane = new CANNON.Plane();
-// const planeBody = new CANNON.Body({ shape: plane, mass: 0 });
-// planeBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2);
-// planeBody.position.set(1000, -5000, 0);
-// world.addBody(planeBody);
+const plane = new CANNON.Plane();
+const planeBody = new CANNON.Body({ shape: plane, mass: 0 });
+planeBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2);
+planeBody.position.set(1000, -5200, 0);
+world.addBody(planeBody);
 
-// const box = new CANNON.Box(new CANNON.Vec3(100, 100, 100));
-// const boxBody = new CANNON.Body({ shape: box, mass: 10 });
-// boxBody.position.set(1000, -4500, 0);
-// world.addBody(boxBody);
+const box = new CANNON.Box(new CANNON.Vec3(100, 100, 100));
+const boxBody = new CANNON.Body({ shape: box, mass: 1 });
+boxBody.position.set(1000, -4500, 0);
+world.addBody(boxBody);
 
-// const box2 = new CANNON.Box(new CANNON.Vec3(80, 80, 80));
-// const box2Body = new CANNON.Body({ shape: box2, mass: 0 });
-// box2Body.position.set(500, -4900, 0);
-// world.addBody(box2Body);
+const box2 = new CANNON.Box(new CANNON.Vec3(80, 300, 80));
+const box2Body = new CANNON.Body({ shape: box2, mass: 0 });
+box2Body.position.set(500, -4900, 0);
+world.addBody(box2Body);
 
-// const bGeo = new THREE.BoxGeometry(200, 200, 200);
-// const bMat = new THREE.MeshLambertMaterial({ color: 0xff00ff });
-// const bMesh = new THREE.Mesh(bGeo, bMat);
-// scene.add(bMesh);
+const circle = new CANNON.Sphere(50);
+const circleBody = new CANNON.Body({ shape: circle, mass: 5 });
+circleBody.position.set(1000, -4400, 0);
+world.addBody(circleBody);
+
+const boxT = new THREE.TextureLoader().load('./assets/material/box.jpg');
+const bGeo = new THREE.BoxGeometry(200, 200, 200);
+const bMat = new THREE.MeshLambertMaterial({ map: boxT });
+const bMesh = new THREE.Mesh(bGeo, bMat);
+scene.add(bMesh);
+
+const ball = new THREE.TextureLoader().load('./assets/material/ball.jpg');
+const cGeo = new THREE.SphereGeometry(50);
+const cMat = new THREE.MeshLambertMaterial({ map: ball });
+const cMesh = new THREE.Mesh(cGeo, cMat);
+
+scene.add(cMesh);
 
 const clock2 = new THREE.Clock();
 const clock3 = new THREE.Clock();
@@ -450,9 +453,29 @@ const clock5 = new THREE.Clock();
 function draw() {
    requestAnimationFrame(draw);
 
-   // box2Body.position.copy(cam.position);
-   // bMesh.position.copy(boxBody.position);
-   // world.step(timeStamp);
+   box2Body.position.copy(cam.position);
+   bMesh.position.copy(boxBody.position);
+   bMesh.quaternion.copy(boxBody.quaternion);
+   cMesh.position.copy(circleBody.position);
+   cMesh.quaternion.copy(circleBody.quaternion);
+
+   if (circleBody.velocity.x > 0) circleBody.velocity.x -= 1;
+   if (circleBody.velocity.x < 0) circleBody.velocity.x += 1;
+   if (circleBody.velocity.y > 0) circleBody.velocity.y -= 1;
+   if (circleBody.velocity.y < 0) circleBody.velocity.y += 1;
+   if (circleBody.velocity.z > 0) circleBody.velocity.z -= 1;
+   if (circleBody.velocity.z < 0) circleBody.velocity.z += 1;
+
+   if (circleBody.quaternion.w > 0) circleBody.quaternion.w -= 0.001;
+   if (circleBody.quaternion.w < 0) circleBody.quaternion.w += 0.001;
+   if (circleBody.quaternion.x > 0) circleBody.quaternion.x -= 0.001;
+   if (circleBody.quaternion.x < 0) circleBody.quaternion.x += 0.001;
+   if (circleBody.quaternion.y > 0) circleBody.quaternion.y -= 0.001;
+   if (circleBody.quaternion.y < 0) circleBody.quaternion.y += 0.001;
+   if (circleBody.quaternion.z > 0) circleBody.quaternion.z -= 0.001;
+   if (circleBody.quaternion.z < 0) circleBody.quaternion.z += 0.001;
+
+   world.step(timeStamp);
 
    if (mixerPatrick) {
       mixerPatrick.update(clock.getDelta());
