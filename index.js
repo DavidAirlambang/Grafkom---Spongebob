@@ -8,7 +8,7 @@ const cam = new THREE.PerspectiveCamera(
 
 scene.fog = new THREE.FogExp2(0xaaaaaa, 0.0002);
 
-cam.position.set(5200, -4900, 0);
+cam.position.set(2000, -4900, 0);
 // cam.position.set(-3000, -4800, 0);
 // cam.rotation.y = 600;
 // cam.lookAt(new THREE.Vector3(0, -10000, 100));
@@ -422,11 +422,31 @@ const boxBody = new CANNON.Body({ shape: box, mass: 1 });
 boxBody.position.set(1000, -4500, 0);
 world.addBody(boxBody);
 
+// Camera
 const box2 = new CANNON.Box(new CANNON.Vec3(80, 300, 80));
 const box2Body = new CANNON.Body({ shape: box2, mass: 0 });
 box2Body.position.set(500, -4900, 0);
 world.addBody(box2Body);
 
+// Patrick
+const box3 = new CANNON.Box(new CANNON.Vec3(50, 50, 80));
+const box3Body = new CANNON.Body({ shape: box3, mass: 1 });
+box3Body.position.set(-3300, -5000, -1000);
+world.addBody(box3Body);
+
+// Squidward
+const box4 = new CANNON.Box(new CANNON.Vec3(50, 50, 80));
+const box4Body = new CANNON.Body({ shape: box4, mass: 1 });
+box4Body.position.set(1000, -5100, -1000);
+world.addBody(box4Body);
+
+// Spongebob
+const box5 = new CANNON.Box(new CANNON.Vec3(50, 50, 80));
+const box5Body = new CANNON.Body({ shape: box5, mass: 1 });
+box5Body.position.set(5100, -5100, -1000);
+world.addBody(box5Body);
+
+// Ball
 const circle = new CANNON.Sphere(50);
 const circleBody = new CANNON.Body({ shape: circle, mass: 5 });
 circleBody.position.set(1000, -4400, 0);
@@ -458,6 +478,19 @@ function draw() {
    bMesh.quaternion.copy(boxBody.quaternion);
    cMesh.position.copy(circleBody.position);
    cMesh.quaternion.copy(circleBody.quaternion);
+
+   if (patrick) {
+      let { x, y, z } = box3Body.position;
+      patrick.position.copy({ x, y: y - 50, z });
+   }
+   if (squidwards) {
+      let { x, y, z } = box4Body.position;
+      squidwards.position.copy({ x, y: y + 200, z });
+   }
+   if (spongebob) {
+      let { x, y, z } = box5Body.position;
+      spongebob.position.copy({ x, y: y - 70, z });
+   }
 
    if (circleBody.velocity.x > 0) circleBody.velocity.x -= 1;
    if (circleBody.velocity.x < 0) circleBody.velocity.x += 1;
